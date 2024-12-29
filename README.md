@@ -1,1 +1,1 @@
-the CLI tool that serves as an HTTP Client to react with the node server 
+This branch represents the staging branch which is dedicated for the coding in progress 
