@@ -4,6 +4,7 @@
   "description": "the CLI tool that serves as an HTTP Client to react with the node server",
   "main": "index.js",
   "scripts": {
+    "build": "rm -rf ./dist && tsc",
     "test": "jest || echo \"No tests yet\" && exit 0",
     "lint": "eslint ./src || echo 'No lint yet, no files to check!' "
   },
