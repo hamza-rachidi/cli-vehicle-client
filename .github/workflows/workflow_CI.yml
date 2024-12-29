@@ -1,0 +1,38 @@
+name: Vehicle Client CI
+
+on:
+  pull_request:
+    branches:
+      - staging
+      - main
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.17.x'
+
+      - name: Install Required Dependecies 
+        run: npm ci
+
+      - name: Check Node Version
+        run: node --version
+
+      - name: Build application
+        run: npm run build
+
+      - name: Run Lint for statistical analysis of the code 
+        run: npm run lint
+
+      - name: Run Tests
+        run: npm run test
+
+      - name: List dist output
+        run: ls dist/
