@@ -1,5 +1,4 @@
 import { Command } from "commander";
-import fetch from "node-fetch";
 
 type VehicleResponse = {
   id: string;
@@ -14,7 +13,7 @@ type VehicleResponse = {
   };
 };
 
-export default function create_Vehicle(address: string): Command {
+export default function create_Vehicle(): Command {
 const createVehicle = new Command("create-vehicle");
 
 createVehicle
@@ -23,7 +22,13 @@ createVehicle
   .requiredOption("-b,--battery <integer>", "Battery level ranging from 0 to 100 %")
   .requiredOption("-l,--longitude <number>", "Longitude must be between -90 and 90")
   .requiredOption("-L,--latitude <number>", "Latitude must be between -90 and 90")
-  .action(async (options) => {
+  .action(async (options, command) => {
+
+    const address = command.parent?.opts()?.address;
+    if (!address) {
+      console.error("Error: Server address (--address) is required");
+      process.exit(1);
+    }
     const payload = {
       shortcode: options.shortcode,
       battery: parseInt(options.battery,10),
@@ -32,12 +37,13 @@ createVehicle
     };
 
     try {
+      //console.log(address); // to debug 
       const response = await fetch(`${address}/vehicles`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-
+      
       const responseData = (await response.json()) as VehicleResponse;
 
       if (!response.ok) {
