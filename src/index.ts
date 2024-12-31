@@ -3,7 +3,7 @@
 import { Command } from "commander";
 import create_Vehicle from "./commands/createVehicle";
 
-const program = new Command("vehicle-cli");
+const program = new Command();
 
 
 program

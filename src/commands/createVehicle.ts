@@ -37,7 +37,7 @@ createVehicle
     };
 
     try {
-      //console.log(address); // to debug 
+      
       const response = await fetch(`${address}/vehicles`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -45,16 +45,11 @@ createVehicle
       });
       
       const responseData = (await response.json()) as VehicleResponse;
+      
 
       if (!response.ok) {
         console.error(
-          `Could not create the vehicle \n Error: ${responseData.error?.code} - ${responseData.error?.message}. Details: ${
-            Array.isArray(responseData.error?.details)
-              ? responseData.error.details.join(", ") // Si `details` est un tableau, on les joint.
-              : typeof responseData.error?.details === "string"
-              ? responseData.error.details // Si `details` est une chaîne, on l'affiche directement.
-              : "No additional details provided." // Par défaut, on affiche un message générique.
-          }`
+         `Could not create the vehicle \n Error: ${responseData.error?.code} - ${responseData.error?.message}. Details: ${JSON.stringify(responseData.error?.details)}`
         );
         process.exit(1);
       }
