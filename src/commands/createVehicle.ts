@@ -1,6 +1,6 @@
 import { Command } from "commander";
 
-type VehicleResponse = {
+interface VehicleResponse {
   id: string;
   shortcode: string;
   battery: number;
@@ -11,7 +11,7 @@ type VehicleResponse = {
     message: string;
     details?: string[];
   };
-};
+}
 
 export default function create_Vehicle(): Command {
 const createVehicle = new Command("create-vehicle");
@@ -54,10 +54,15 @@ createVehicle
       }
 
       console.log(`Created vehicle '${responseData.shortcode}', with ID '${responseData.id}'`);
-    } catch (error:any) {
-      console.error("Error connecting to the server:", error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Error connecting to the server:", error.message);
+      } else {
+        console.error("Unexpected error:", error);
+      }
       process.exit(1);
     }
+    
   });
   return createVehicle;
 }
