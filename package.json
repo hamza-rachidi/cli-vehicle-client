@@ -12,8 +12,7 @@
   "author": "Hamza RACHIDI & Qiuling LIN",
   "license": "ISC",
   "dependencies": {
-    "commander": "^12.1.0",
-    "node-fetch": "^3.3.2"
+    "commander": "^12.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
