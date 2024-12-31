@@ -1,6 +1,19 @@
 import { Command } from "commander";
 import fetch from "node-fetch";
 
+type VehicleResponse = {
+  id: string;
+  shortcode: string;
+  battery: number;
+  longitude: number;
+  latitude: number;
+  error?: {
+    code: number;
+    message: string;
+    details?: string[];
+  };
+};
+
 export default function create_Vehicle(address: string): Command {
 const createVehicle = new Command("create-vehicle");
 
@@ -25,17 +38,17 @@ createVehicle
         body: JSON.stringify(payload),
       });
 
-      const responseData = await response.json();
+      const responseData = (await response.json()) as VehicleResponse;
 
       if (!response.ok) {
         console.error(
-          `Could not create the vehicle \n Error: ${responseData.error.code} - ${responseData.error.message}. Details: ${JSON.stringify(responseData.error.details)}`
+          `Could not create the vehicle \n Error: ${responseData.error?.code} - ${responseData.error?.message}. Details: ${JSON.stringify(responseData.error?.details)}`
         );
         process.exit(1);
       }
 
       console.log(`Created vehicle '${responseData.shortcode}', with ID '${responseData.id}'`);
-    } catch (error) {
+    } catch (error:any) {
       console.error("Error connecting to the server:", error.message);
       process.exit(1);
     }
