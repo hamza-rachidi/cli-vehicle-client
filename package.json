@@ -6,7 +6,9 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc",
     "test": "jest || echo \"No tests yet\" && exit 0",
-    "lint": "eslint ./src "
+    "lint": "eslint ./src ",
+    "postbuild": "chmod +x dist/index.js", 
+    "global-install": "npm install -g ."  
   },
   "keywords": [],
   "author": "Hamza RACHIDI & Qiuling LIN",
@@ -24,5 +26,8 @@
     "ts-jest": "^29.2.5",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.2"
+  },
+  "bin": {
+    "vehicle-cli": "./dist/index.js"
   }
 }

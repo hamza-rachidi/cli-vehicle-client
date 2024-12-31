@@ -1,7 +1,9 @@
+#!/usr/bin/env node
+
 import { Command } from "commander";
 import create_Vehicle from "./commands/createVehicle";
 
-const program = new Command();
+const program = new Command("vehicle-cli");
 
 
 program
