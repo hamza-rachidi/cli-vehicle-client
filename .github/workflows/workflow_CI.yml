@@ -27,7 +27,8 @@ jobs:
 
       - name: Build application
         run: npm run build
-
+      # npm run postbuild is automatically executed via npm so no need to add it to CI
+      
       - name: Run Lint for statistical analysis of the code 
         run: npm run lint
 
@@ -36,3 +37,10 @@ jobs:
 
       - name: List dist output
         run: ls dist/
+
+      # not necessary to build the project in Github Actions, but it will be used below
+      - name: Install CLI Globally
+        run: npm run global-install
+        
+      - name: Test if our CLI works as a global bash command when calling vehicle-cli
+        run: vehicle-cli -h
