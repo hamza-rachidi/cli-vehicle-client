@@ -23,7 +23,7 @@ program
 
   async function main() {
     program.addCommand(await create_Vehicle());
-    // Add other commands later : program.addCommand(await listVehicle(address));
+    // Add other commands later : program.addCommand(await list_Vehicle());
     program.parse(process.argv);
   }
 
