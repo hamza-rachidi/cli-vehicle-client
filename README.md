@@ -67,8 +67,8 @@ vehicle-cli -a http://localhost:8080 create-vehicle -c abcd -b=50 -l12.34 -L=56.
 - -a, --address <server adress> : Spécifiez l'adresse du serveur :  le host et le port (par exemple, http://localhost:8080).
 - -c, ou --shortcode <string> : Le shortcode du véhicule (4 caractères).
 - -b ou --battery <integer> : Le niveau de batterie (entre 0 et 100).
-- -l --longitude <number> : La longitude du véhicule.
-- -L --latitude <number> : La latitude du véhicule.
+- -l ou --longitude <number> : La longitude du véhicule (entre -90 and 90).
+- -L ou --latitude <number> : La latitude du véhicule (entre -90 and 90).
 
 💡 Conseils
 Si une commande échoue, vérifiez que votre serveur est actif et accessible à l'adresse fournie avec --address.
