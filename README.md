@@ -81,9 +81,9 @@ Voici un exemple d'une mauvaise requête :
 vehicle-cli --address http://localhost:8080 create-vehicle --shortcode abcdef --battery 50 --longitude 12.34 --latitude 56.78
 ```
 
-🚀 fonctionnalités
-✅ Ajouter un véhicule (terminé)
-🛠️ Lister les véhicules (en cours)
-❌ Supprimer un véhicule (à venir)
+🚀 fonctionnalités : 
+- ✅ Ajouter un véhicule (terminé)
+- 🛠️ Lister les véhicules (en cours)
+- ❌ Supprimer un véhicule (à venir)
 
 🎉 Merci d'utiliser Vehicle CLI ! Si vous avez des questions ou des suggestions, ouvrez un ticket dans le dépôt GitHub.
