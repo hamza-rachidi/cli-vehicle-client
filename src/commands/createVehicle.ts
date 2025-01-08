@@ -1,11 +1,15 @@
 import { Command } from "commander";
 
 interface VehicleResponse {
-  id: string;
-  shortcode: string;
-  battery: number;
-  longitude: number;
-  latitude: number;
+  vehicle: {
+    id: string;
+    shortcode: string;
+    battery: number;
+    position: {
+      longitude: number;
+      latitude: number;
+    };
+  };
   error?: {
     code: number;
     message: string;
@@ -46,6 +50,7 @@ createVehicle
       
       const responseData = (await response.json()) as VehicleResponse;
       
+      
 
       if (!response.ok) {
         console.error(
@@ -53,8 +58,9 @@ createVehicle
         );
         process.exit(1);
       }
+      
 
-      console.log(`Created vehicle '${responseData.shortcode}', with ID '${responseData.id}'`);
+      console.log(`Created vehicle '${responseData.vehicle.shortcode}', with ID '${responseData.vehicle.id}'`);
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error("Error connecting to the server:", error.message);
