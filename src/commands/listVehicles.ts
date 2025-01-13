@@ -54,11 +54,15 @@ export default function list_Vehicles(): Command {
           console.log("No vehicles found on the server.");
         } else {
           console.log("List of Vehicles:");
-          vehicles.forEach((vehicle) => {
-            console.log(
-              `- ID: ${vehicle.id}, Shortcode: ${vehicle.shortcode}, Battery: ${vehicle.battery}%, Position: [Longitude: ${vehicle.position.longitude}, Latitude: ${vehicle.position.latitude}]`
-            );
-          });
+          console.table(
+            vehicles.map((vehicle) => ({
+              ID: vehicle.id,
+              Shortcode: vehicle.shortcode,
+              Battery: `${vehicle.battery}%`,
+              Longitude: vehicle.position.longitude,
+              Latitude: vehicle.position.latitude,
+            }))
+          );
         }
       } catch (error: unknown) {
         if (error instanceof Error) {
