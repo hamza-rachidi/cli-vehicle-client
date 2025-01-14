@@ -56,12 +56,12 @@ vehicle-cli create-vehicle --help
 3️⃣ Créer un véhicule
 Voici un exemple de commande pour créer un véhicule avec les options requises :
 ```bash 
-vehicle-cli --address http://localhost:8080 create-vehicle --shortcode abcd --battery 50 --longitude 12.34 --latitude 56.78
+vehicle-cli --address http://localhost:8080 create-vehicle --shortcode=abcd --battery=50 --longitude=12.34 --latitude=56.78
 ```
 ou plus brièvement 
 
 ```bash 
-vehicle-cli -a http://localhost:8080 create-vehicle -c abcd -b=50 -l12.34 -L=56.78
+vehicle-cli -a http://localhost:8080 create-vehicle -c abcd -b 50 -l 12.34 -L 56.78
 ```
 
 - -a, --address <server adress> : Spécifiez l'adresse du serveur :  le host et le port (par exemple, http://localhost:8080).
