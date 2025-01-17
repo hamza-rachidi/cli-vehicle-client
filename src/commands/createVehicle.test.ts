@@ -3,20 +3,24 @@ import create_Vehicle from "../commands/createVehicle";
 
 describe("create_Vehicle", () => {
   let program: Command;
+  let processExitSpy: jest.SpyInstance;
 
   beforeEach(() => {
     program = new Command();
     program.option("--address <string>");
     program.addCommand(create_Vehicle());
-    global.fetch = jest.fn(); // Assurez-vous que fetch est mocké globalement
+    global.fetch = jest.fn(); 
+    processExitSpy = jest.spyOn(process, "exit").mockImplementation((code?: string | number | null) => {
+      throw new Error(`process.exit called with code ${code}`);
+    });
   });
 
   afterEach(() => {
-    jest.restoreAllMocks(); // Restaure les mocks après chaque test
+    jest.restoreAllMocks(); 
   });
 
-  it("should create a vehicle successfully", async () => {
-    // Simuler la réponse de l'API
+  it("should create a vehicle successfully if user writes a correct syntax", async () => {
+    
     (global.fetch as jest.Mock).mockResolvedValueOnce(
       new Response(
         JSON.stringify({
@@ -28,7 +32,6 @@ describe("create_Vehicle", () => {
 
     const consoleLogSpy = jest.spyOn(console, "log").mockImplementation();
     
-    // Exécuter la commande avec des options
     await program.parseAsync([
       "node", "vehicle-cli", 
       "--address", "http://localhost:8080", 
@@ -39,20 +42,20 @@ describe("create_Vehicle", () => {
       "--latitude=56.78"
     ]);
 
-    // Vérifier que le message de succès a bien été loggé
+    
     expect(consoleLogSpy).toHaveBeenCalledWith("Created vehicle 'abcd', with ID '1'");
     
-    // Restaure le spy
+    
     consoleLogSpy.mockRestore();
   });
 
   /*it("should handle server not working", async () => {
-    // Simuler une erreur de connexion (par exemple, problème réseau)
+    
     (global.fetch as jest.Mock).mockRejectedValueOnce(new Error("Network Error"));
-
+  
     const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation();
     
-    // Exécuter la commande
+    
     await program.parseAsync([
       "node", "vehicle-cli", 
       "--address", "http://localhost:8080", 
@@ -62,44 +65,44 @@ describe("create_Vehicle", () => {
       "--longitude=12.34", 
       "--latitude=56.78"
     ]);
-
-    // Vérifier que l'erreur de connexion est bien loggée
-    expect(consoleErrorSpy).toHaveBeenCalledWith("Error connecting to the server:", "Network Error");
+  
     
-    // Restaure le spy
+    expect(consoleErrorSpy).toHaveBeenCalledWith("Error connecting to the server:");
+    
+    
     consoleErrorSpy.mockRestore();
-  });
-
-  it("should handle bad request", async () => {
-    // Simuler une réponse d'erreur avec un mauvais shortcode
+  });*/
+  
+  it("should handle bad request with invalid shortcode", async () => {
+    
     (global.fetch as jest.Mock).mockResolvedValueOnce(
       new Response(
         JSON.stringify({
-          error: { code: 400, message: "Bad Request", details: ["Shortcode must be exactly 4 characters long"] },
+          error: { 
+            code: 400, 
+            message: "Bad Request", 
+            details: ["Shortcode must be only 4 characters long"] 
+          },
         }),
         { status: 400 }
       )
     );
-
+  
     const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation();
     
-    // Exécuter la commande avec un shortcode invalide
-    await program.parseAsync([
+    await expect ( program.parseAsync([
       "node", "vehicle-cli", 
       "--address", "http://localhost:8080", 
       "create-vehicle", 
-      "--shortcode=abcedd", 
+      "--shortcode=abcdef",  
       "--battery=50", 
       "--longitude=12.34", 
       "--latitude=56.78"
-    ]);
-
-    // Vérifier que le message d'erreur est bien loggé
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Could not create the vehicle \n Error: 400 - Bad Request. Details: [\"Shortcode must be exactly 4 characters long\"]"
-    );
+    ])).rejects.toThrow("process.exit called with code 1");
+  
+    expect(consoleErrorSpy).toHaveBeenCalledWith(expect.stringContaining("Could not create the vehicle"));
+    expect(consoleErrorSpy).toHaveBeenCalledWith(expect.stringContaining("Shortcode must be only 4 characters long"));
     
-    // Restaure le spy
     consoleErrorSpy.mockRestore();
-  });*/
+  });
 });
