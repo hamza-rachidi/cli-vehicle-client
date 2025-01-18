@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "build": "rm -rf ./dist && tsc",
-    "test": "jest || echo \"No tests yet\" && exit 0",
-    "lint": "eslint ./src ",
     "postbuild": "chmod +x dist/index.js", 
-    "global-install": "npm install -g ."  
+    "global-install": "npm install -g ." ,
+    "lint": "eslint ./src ",
+    "test": "jest || echo \"No tests yet\" && exit 0",
+    "test-coverage": "jest --coverage --coverageReporters=text "
   },
   "keywords": [],
   "author": "Hamza RACHIDI & Qiuling LIN",
