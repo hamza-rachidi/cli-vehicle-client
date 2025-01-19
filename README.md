@@ -83,7 +83,7 @@ vehicle-cli --address http://localhost:8080 create-vehicle --shortcode abcdef --
 
 🚀 fonctionnalités : 
 - ✅ Ajouter un véhicule (terminé)
-- 🛠️ Lister les véhicules (en cours)
-- ❌ Supprimer un véhicule (à venir)
+- ✅ Lister les véhicules (terminé)
+- ✅ Supprimer un véhicule (terminé)
 
 🎉 Merci d'utiliser Vehicle CLI ! Si vous avez des questions ou des suggestions, ouvrez un ticket dans le dépôt GitHub.

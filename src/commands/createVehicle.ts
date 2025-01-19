@@ -50,8 +50,6 @@ createVehicle
       
       const responseData = (await response.json()) as VehicleResponse;
       
-      
-
       if (!response.ok) {
         console.error(
          `Could not create the vehicle \n Error: ${responseData.error?.code} - ${responseData.error?.message}. Details: ${JSON.stringify(responseData.error?.details)}`
@@ -64,8 +62,6 @@ createVehicle
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error("Error connecting to the server:", error.message);
-      } else {
-        console.error("Unexpected error:", error);
       }
       process.exit(1);
     }

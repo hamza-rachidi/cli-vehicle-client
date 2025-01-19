@@ -1,7 +1,7 @@
 import { Command } from "commander";
 import create_Vehicle from "../commands/createVehicle"; 
 
-describe("create_Vehicle", () => {
+describe("create_Vehicle functionalities unit tests", () => {
   let program: Command;
   let processExitSpy: jest.SpyInstance;
 
@@ -49,14 +49,14 @@ describe("create_Vehicle", () => {
     consoleLogSpy.mockRestore();
   });
 
-  /*it("should handle server not working", async () => {
+  it("should handle server not working", async () => {
     
-    (global.fetch as jest.Mock).mockRejectedValueOnce(new Error("Network Error"));
+    (global.fetch as jest.Mock).mockRejectedValueOnce(new TypeError("fetch failed"));
   
     const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation();
     
     
-    await program.parseAsync([
+    await expect ( program.parseAsync([
       "node", "vehicle-cli", 
       "--address", "http://localhost:8080", 
       "create-vehicle", 
@@ -64,16 +64,14 @@ describe("create_Vehicle", () => {
       "--battery=50", 
       "--longitude=12.34", 
       "--latitude=56.78"
-    ]);
+    ])).rejects.toThrow("process.exit called with code 1");
   
-    
-    expect(consoleErrorSpy).toHaveBeenCalledWith("Error connecting to the server:");
-    
-    
+    expect(consoleErrorSpy).toHaveBeenCalledWith("Error connecting to the server:", "fetch failed");
+  
     consoleErrorSpy.mockRestore();
-  });*/
+  });
   
-  it("should handle bad request with invalid shortcode", async () => {
+  it("should handle bad request with invalid argument and reports the error from the server", async () => {
     
     (global.fetch as jest.Mock).mockResolvedValueOnce(
       new Response(
@@ -105,4 +103,24 @@ describe("create_Vehicle", () => {
     
     consoleErrorSpy.mockRestore();
   });
+
+  it("should handle missing address argument", async () => {
+    const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+  
+    await expect(
+      program.parseAsync([
+        "node",
+        "vehicle-cli",
+        "create-vehicle",
+        "--shortcode=abcd",
+        "--battery=50",
+        "--longitude=12.34",
+        "--latitude=56.78",
+      ])
+    ).rejects.toThrow("process.exit called with code 1");
+    expect(consoleErrorSpy).toHaveBeenCalledWith("Error: Server address (--address) is required");
+  
+    consoleErrorSpy.mockRestore();
+  });
+  
 });
