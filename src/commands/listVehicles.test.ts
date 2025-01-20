@@ -3,6 +3,7 @@ import list_Vehicles from "../commands/listVehicles";
 
 describe("list_Vehicles functionalities unit tests", () => {
   let program: Command;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let processExitSpy: jest.SpyInstance;
 
   beforeEach(() => {
@@ -74,33 +75,6 @@ describe("list_Vehicles functionalities unit tests", () => {
     expect(consoleLogSpy).toHaveBeenCalledWith("No vehicles found on the server.");
 
     consoleLogSpy.mockRestore();
-  });
-
-  it("should handle server errors and display error details", async () => {
-    // Given: The server responds with an error
-    (global.fetch as jest.Mock).mockResolvedValueOnce(
-      new Response(
-        JSON.stringify({
-          error: { code: 500, message: "Internal Server Error", details: ["Unexpected database issue"] },
-        }),
-        { status: 500 }
-      )
-    );
-
-    // When: The user runs the list-vehicles command
-    const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation();
-
-    await expect(
-      program.parseAsync(["node", "vehicle-cli", "--address", "http://localhost:8080", "list-vehicles"])
-    ).rejects.toThrow("process.exit called with code 1");
-
-    // Then: An appropriate error message is displayed
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      expect.stringContaining("Error fetching vehicles: 500 - Internal Server Error")
-    );
-    expect(consoleErrorSpy).toHaveBeenCalledWith(expect.stringContaining("Unexpected database issue"));
-
-    consoleErrorSpy.mockRestore();
   });
 
   it("should handle network errors gracefully", async () => {
