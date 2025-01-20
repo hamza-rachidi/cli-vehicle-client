@@ -3,6 +3,7 @@ import create_Vehicle from "../commands/createVehicle";
 
 describe("create_Vehicle functionalities unit tests", () => {
   let program: Command;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let processExitSpy: jest.SpyInstance;
 
   beforeEach(() => {
@@ -107,7 +108,9 @@ describe("create_Vehicle functionalities unit tests", () => {
 
   it("should handle missing address argument", async () => {
     // Given: The user does not provide the --address argument for example
-    const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+    const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation(() => {
+      // to silent the lint
+    });
   
     // When: The user tries to create a vehicle without writing the address
     await expect(
