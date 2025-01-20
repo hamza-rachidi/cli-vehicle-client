@@ -2,6 +2,7 @@
 
 import { Command } from "commander";
 import create_Vehicle from "./commands/createVehicle";
+import list_Vehicles from "./commands/listVehicles";
 
 const program = new Command();
 
@@ -23,7 +24,7 @@ program
 
   async function main() {
     program.addCommand(await create_Vehicle());
-    // Add other commands later : program.addCommand(await list_Vehicle());
+    program.addCommand(await list_Vehicles());
     program.parse(process.argv);
   }
 
@@ -31,6 +32,3 @@ program
     console.error("Unexpected error:", error.message);
     process.exit(1);
   });
-
-
-
