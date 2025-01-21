@@ -75,7 +75,7 @@ describe("delete_Vehicle functionalities unit tests", () => {
 
   it("should handle network errors gracefully", async () => {
     // Given: The fetch request fails due to a network issue
-    (global.fetch as jest.Mock).mockRejectedValueOnce(new Error("Network Error"));
+    (global.fetch as jest.Mock).mockRejectedValueOnce(new Error("fetch failed"));
 
     // When: The user tries to delete a vehicle but the server is unreachable
     const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation();
@@ -85,7 +85,7 @@ describe("delete_Vehicle functionalities unit tests", () => {
     ).rejects.toThrow("process.exit called with code 1");
 
     // Then: A network error message is logged
-    expect(consoleErrorSpy).toHaveBeenCalledWith("Error connecting to the server:", "Network Error");
+    expect(consoleErrorSpy).toHaveBeenCalledWith("Error connecting to the server:", "fetch failed");
 
     consoleErrorSpy.mockRestore();
   });
