@@ -33,7 +33,7 @@ jobs:
         run: npm run lint
 
       - name: Run Tests
-        run: npm run test
+        run: npm run test-coverage
 
       - name: List dist output
         run: ls dist/
