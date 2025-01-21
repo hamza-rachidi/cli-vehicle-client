@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
+import create_Vehicle from "./commands/createVehicle";
+import list_Vehicles from "./commands/listVehicles";
 import delete_Vehicle from "./commands/deleteVehicle";
-
 
 const program = new Command();
 
@@ -23,7 +24,10 @@ program
 
 
   async function main() {
+    program.addCommand(await create_Vehicle());
+    program.addCommand(await list_Vehicles());
     program.addCommand(await delete_Vehicle());
+
     program.parse(process.argv);
   }
 
