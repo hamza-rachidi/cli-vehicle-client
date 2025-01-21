@@ -3,6 +3,7 @@ import delete_Vehicle from "../commands/deleteVehicle";
 
 describe("delete_Vehicle functionalities unit tests", () => {
   let program: Command;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let processExitSpy: jest.SpyInstance;
 
   beforeEach(() => {
