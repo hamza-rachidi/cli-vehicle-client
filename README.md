@@ -27,7 +27,7 @@ Pour tester l'application CLI, exécutez un conteneur Docker basé sur l'image :
 docker run --rm vehicle-cli --help
 ```
 - **`--rm`** : Supprime automatiquement le conteneur après l'exécution.
-- **`vehicle-cli --help`** : Affiche les options disponibles de votre CLI.
+- **`vehicle-cli --help`** : Affiche les options disponibles du CLI.
 
 ### 4. **Exécuter en mappant des ports**
 Des problèmes de port hôte persistent actuellement. Même si le serveur écoute par exemple sur un port, le docker isolé n'arrive pas à fetcher le serveur. 
