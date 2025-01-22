@@ -1,89 +1,50 @@
-# 🚗 Vehicle CLI: Ajouter un véhicule
+# Dockerisation de l'Application Vehicle CLI 🚀
 
-Bienvenue dans **Vehicle CLI**, un outil de ligne de commande 🛠️ conçu pour interagir avec votre serveur 🚀. Cette fonctionnalité vous permet de créer des véhicules via la commande `create-vehicle`.
-
-## 📋 À quoi sert cette fonctionnalité ?
-Avec `create-vehicle`, vous pouvez :
-- Ajouter un véhicule avec un **shortcode**, un niveau de batterie, et des coordonnées géographiques.
-- Interagir facilement avec votre serveur sans devoir écrire des requêtes HTTP manuellement.
-- Obtenir des retours clairs sur les erreurs et réussites depuis le serveur.
+Ce projet contient un fichier **Dockerfile** et un fichier de workflow pour **la livraison continue (CD)** de  l'application développée. L'application est prête à être publiée sous forme d'image Docker et déployée sur un registre Docker tel que Docker Hub. Cependant, le mappage des ports hôte-conteneur présente encore un problème à résoudre. 🛠️
 
 ---
 
-## 🛠️ Installation et mise en place
+## Étapes pour utiliser Docker avec Vehicle CLI 🐳
 
-Suivez ces étapes simples pour installer et exécuter le projet.
-
-### 1️⃣ Cloner le projet
+### 1. **Construire l'image Docker**
+Pour créer une image Docker à partir du `Dockerfile` présent dans le projet, utilisez la commande suivante :
 ```bash
-git clone https://github.com/hamza-rachidi/cli-vehicle-client.git
-cd cli-vehicle-client
+docker build -t vehicle-cli .
 ```
+- **`-t vehicle-cli`** : Attribue un nom à l'image (`vehicle-cli`).
+- **`.`** : Indique que le fichier `Dockerfile` est dans le répertoire courant.
 
-### 2️⃣ Installer les dépendances
-Assurez-vous d'avoir Node.js (v20 ou supérieur) installé, puis exécutez :
-```bash 
-npm run ci
+### 2. **Vérifier l'image Docker**
+Une fois l'image construite, vérifiez qu'elle est bien disponible localement :
+```bash
+docker images
 ```
+Cela affichera la liste des images disponibles, y compris celle nommée `vehicle-cli`.
 
-### 3️⃣ Compiler le projet
-Transpilez le code TypeScript en JavaScript avec :
-```bash 
-npm run build
+### 3. **Exécuter un conteneur à partir de l'image**
+Pour tester l'application CLI, exécutez un conteneur Docker basé sur l'image :
+```bash
+docker run --rm vehicle-cli --help
 ```
+- **`--rm`** : Supprime automatiquement le conteneur après l'exécution.
+- **`vehicle-cli --help`** : Affiche les options disponibles de votre CLI.
 
-### 4️⃣ Installer globalement
-Installez la CLI pour l'utiliser comme une commande globale :
-```bash 
-npm run global-install
-```
+### 4. **Exécuter en mappant des ports**
+Des problèmes de port hôte persistent actuellement. Même si le serveur écoute par exemple sur un port, le docker isolé n'arrive pas à fetcher le serveur. 
 
-## 📖 Utilisation
+---
 
-1️⃣ Afficher l'aide générale
-Vous pouvez consulter l'aide pour comprendre les options disponibles :
+## Déploiement Continu avec Docker Hub 🚀
 
-```bash 
-vehicle-cli --help
-```
-2️⃣ Afficher l'aide pour create-vehicle
-Pour voir les options spécifiques à la commande create-vehicle :
+Un workflow GitHub Actions est déjà configuré pour :
+1. Construire l'image Docker.
+2. Publier l'image sur Docker Hub lorsque vous poussez un tag (par exemple `v1.0.0`).
 
-```bash 
-vehicle-cli create-vehicle --help
-```
+Pour que cela fonctionne :
+- Configurez vos **secrets GitHub** avec vos identifiants Docker Hub :
+  - **`DOCKER_USERNAME`** : Votre nom d'utilisateur Docker Hub.
+  - **`DOCKER_PASSWORD`** : Votre mot de passe Docker Hub.
+- Le workflow associera le **tag Git** au **tag Docker**.
 
-3️⃣ Créer un véhicule
-Voici un exemple de commande pour créer un véhicule avec les options requises :
-```bash 
-vehicle-cli --address http://localhost:8080 create-vehicle --shortcode=abcd --battery=50 --longitude=12.34 --latitude=56.78
-```
-ou plus brièvement 
 
-```bash 
-vehicle-cli -a http://localhost:8080 create-vehicle -c abcd -b 50 -l 12.34 -L 56.78
-```
-
-- -a, --address <server adress> : Spécifiez l'adresse du serveur :  le host et le port (par exemple, http://localhost:8080).
-- -c, ou --shortcode <string> : Le shortcode du véhicule (4 caractères).
-- -b ou --battery <integer> : Le niveau de batterie (entre 0 et 100).
-- -l ou --longitude <number> : La longitude du véhicule (entre -90 and 90).
-- -L ou --latitude <number> : La latitude du véhicule (entre -90 and 90).
-
-💡 Conseils
-Si une commande échoue, vérifiez que votre serveur est actif et accessible à l'adresse fournie avec --address.
-Utilisez --help pour chaque commande ou sous-commande pour voir les options disponibles.
-
-Si le message d'erreur mentionne des détails comme "Shortcode must be only 4 characters long", corrigez vos options en conséquence. 
-
-Voici un exemple d'une mauvaise requête :
-```bash 
-vehicle-cli --address http://localhost:8080 create-vehicle --shortcode abcdef --battery 50 --longitude 12.34 --latitude 56.78
-```
-
-🚀 fonctionnalités : 
-- ✅ Ajouter un véhicule (terminé)
-- ✅ Lister les véhicules (terminé)
-- ✅ Supprimer un véhicule (terminé)
-
-🎉 Merci d'utiliser Vehicle CLI ! Si vous avez des questions ou des suggestions, ouvrez un ticket dans le dépôt GitHub.
+N'hésitez pas à poser vos questions ou à contribuer pour résoudre ces problèmes ! 😊
