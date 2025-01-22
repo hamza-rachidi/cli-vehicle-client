@@ -120,7 +120,7 @@ vehicle-cli --address http://localhost:8080 create-vehicle --shortcode abcdef --
 
 - **main**: La branche principale pour la version de production contenant une version stable des fonctionnalités principales.
 - **staging**: La branche de développement où de nouvelles fonctionnalités sont testées et lintés avant d’être intégrées dans `main`.
-- **docker**: Une branche contenant une configuration Docker et un workflow de livraison continu pour exécuter le projet. Bien que Docker soit fonctionnel, l'image est générée correctement, et notre CLI peut s'appeler avec la commande docker run gérant le cas où le serveur ne tourne pas. Or, il y a juste une toute partie qui manque c'est la configuration de host et port qui a empêché la connexion au serveur même s'il est actif su run port. 
+- **docker**: Une branche contenant une configuration Docker et un workflow de livraison continu pour exécuter le projet. Bien que Docker soit fonctionnel, l'image est générée correctement, et notre CLI peut s'appeler avec la commande docker run gérant le cas où le serveur ne tourne pas. Or, il y a juste une toute partie qui manque c'est la configuration de host et port qui a empêché la connexion au serveur même s'il est actif sur un port (voir branche docker pour plus d'informations) . 
 
 ---
 
