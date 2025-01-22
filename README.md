@@ -61,6 +61,11 @@ vehicle-cli -a http://localhost:8080 create-vehicle -c abcd -b 50 -l 12.34 -L 56
 - -l ou --longitude <number> : La longitude du véhicule (entre -90 and 90).
 - -L ou --latitude <number> : La latitude du véhicule (entre -90 and 90).
 
+Une fois créé avec succès, vous verrez ce message en l'occurence :
+```
+Created vehicle 'abcd', with ID '1'
+```
+
 #### **Lister les véhicules**
 Affichez tous les véhicules disponibles sur le serveur :
 ```bash
@@ -113,11 +118,9 @@ vehicle-cli --address http://localhost:8080 create-vehicle --shortcode abcdef --
 
 ## 🌲 Branches
 
-- **main**: La branche principale contenant une version stable des fonctionnalités principales.
-- **staging**: La branche de développement où de nouvelles fonctionnalités sont testées avant d’être intégrées dans `main`.
-- **docker**: Une branche contenant une configuration Docker pour exécuter le projet. Bien que Docker soit fonctionnel, des erreurs subsistent dans cette version.
-
-
+- **main**: La branche principale pour la version de production contenant une version stable des fonctionnalités principales.
+- **staging**: La branche de développement où de nouvelles fonctionnalités sont testées et lintés avant d’être intégrées dans `main`.
+- **docker**: Une branche contenant une configuration Docker et un workflow de livraison continu pour exécuter le projet. Bien que Docker soit fonctionnel, l'image est générée correctement, et notre CLI peut s'appeler avec la commande docker run gérant le cas où le serveur ne tourne pas. Or, il y a juste une toute partie qui manque c'est la configuration de host et port qui a empêché la connexion au serveur même s'il est actif su run port. 
 
 ---
 
