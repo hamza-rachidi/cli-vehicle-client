@@ -1,18 +1,16 @@
-# 🚗 Vehicle CLI: Ajouter un véhicule
+# 🚗 Vehicle CLI: Gérer vos véhicules
 
-Bienvenue dans **Vehicle CLI**, un outil de ligne de commande 🛠️ conçu pour interagir avec votre serveur 🚀. Cette fonctionnalité vous permet de créer des véhicules via la commande `create-vehicle`.
+Bienvenue dans **Vehicle CLI**, un outil de ligne de commande 🛠️ conçu pour interagir avec votre serveur 🚀. Avec cet outil, vous pouvez créer, lister et supprimer des véhicules de manière simple et efficace.
 
-## 📋 À quoi sert cette fonctionnalité ?
-Avec `create-vehicle`, vous pouvez :
-- Ajouter un véhicule avec un **shortcode**, un niveau de batterie, et des coordonnées géographiques.
-- Interagir facilement avec votre serveur sans devoir écrire des requêtes HTTP manuellement.
-- Obtenir des retours clairs sur les erreurs et réussites depuis le serveur.
 
----
+## 📋 Fonctionnalités
+### Avec **Vehicle CLI**, vous pouvez :
+- **Créer un véhicule** : Ajoutez un véhicule en spécifiant un shortcode, le niveau de batterie et ses coordonnées géographiques.
+- **Lister les véhicules** : Obtenez un tableau des véhicules disponibles sur le serveur.
+- **Supprimer un véhicule** : Retirez un véhicule du serveur à l’aide de son ID.
+
 
 ## 🛠️ Installation et mise en place
-
-Suivez ces étapes simples pour installer et exécuter le projet.
 
 ### 1️⃣ Cloner le projet
 ```bash
@@ -40,26 +38,19 @@ npm run global-install
 
 ## 📖 Utilisation
 
-1️⃣ Afficher l'aide générale
-Vous pouvez consulter l'aide pour comprendre les options disponibles :
-
+### 1️⃣ Afficher l'aide générale
+Consultez l'aide pour comprendre les options disponibles :
 ```bash 
 vehicle-cli --help
 ```
-2️⃣ Afficher l'aide pour create-vehicle
-Pour voir les options spécifiques à la commande create-vehicle :
 
-```bash 
-vehicle-cli create-vehicle --help
-```
-
-3️⃣ Créer un véhicule
-Voici un exemple de commande pour créer un véhicule avec les options requises :
+### 2️⃣ Commandes disponibles
+#### **Créer un véhicule**
+Ajoutez un véhicule avec les options nécessaires :
 ```bash 
 vehicle-cli --address http://localhost:8080 create-vehicle --shortcode=abcd --battery=50 --longitude=12.34 --latitude=56.78
 ```
-ou plus brièvement 
-
+Ou, plus brièvement :
 ```bash 
 vehicle-cli -a http://localhost:8080 create-vehicle -c abcd -b 50 -l 12.34 -L 56.78
 ```
@@ -70,9 +61,43 @@ vehicle-cli -a http://localhost:8080 create-vehicle -c abcd -b 50 -l 12.34 -L 56
 - -l ou --longitude <number> : La longitude du véhicule (entre -90 and 90).
 - -L ou --latitude <number> : La latitude du véhicule (entre -90 and 90).
 
-💡 Conseils
-Si une commande échoue, vérifiez que votre serveur est actif et accessible à l'adresse fournie avec --address.
-Utilisez --help pour chaque commande ou sous-commande pour voir les options disponibles.
+Une fois créé avec succès, vous verrez ce message en l'occurence :
+```
+Created vehicle 'abcd', with ID '1'
+```
+
+#### **Lister les véhicules**
+Affichez tous les véhicules disponibles sur le serveur :
+```bash
+vehicle-cli --address http://localhost:8080 list-vehicles
+```
+Ce qui produira un tableau comme ceci (si des véhicules existent) :
+```
+List of Vehicles:
+┌─────────┬─────┬───────────┬──────────┬───────────┬───────────┐
+│ (index) │ ID  │ Shortcode │ Battery  │ Longitude │ Latitude  │
+├─────────┼─────┼───────────┼──────────┼───────────┼───────────┤
+│    0    │  1  │   abcd    │   80%    │   12.34   │   56.78   │
+│    1    │  2  │   efgh    │   60%    │   23.45   │   67.89   │
+└─────────┴─────┴───────────┴──────────┴───────────┴───────────┘
+```
+
+#### **Supprimer un véhicule**
+Supprimez un véhicule en spécifiant son ID :
+```bash
+vehicle-cli --address http://localhost:8080 delete-vehicle --id=1
+```
+Une fois supprimé avec succès, vous verrez ce message :
+```
+Vehicle with ID '1' was successfully deleted.
+```
+
+
+## 💡 Conseils
+- Si une commande échoue :
+  - Vérifiez que votre serveur est actif et accessible à l'adresse spécifiée avec `--address`.
+  - Lisez attentivement les messages d'erreur pour ajuster vos options.
+- Utilisez `--help` pour chaque commande pour consulter ses options et son usage.
 
 Si le message d'erreur mentionne des détails comme "Shortcode must be only 4 characters long", corrigez vos options en conséquence. 
 
@@ -81,9 +106,22 @@ Voici un exemple d'une mauvaise requête :
 vehicle-cli --address http://localhost:8080 create-vehicle --shortcode abcdef --battery 50 --longitude 12.34 --latitude 56.78
 ```
 
-🚀 fonctionnalités : 
-- ✅ Ajouter un véhicule (terminé)
-- ✅ Lister les véhicules (terminé)
-- ✅ Supprimer un véhicule (terminé)
 
-🎉 Merci d'utiliser Vehicle CLI ! Si vous avez des questions ou des suggestions, ouvrez un ticket dans le dépôt GitHub.
+## 🚀 Fonctionnalités
+
+| Fonctionnalité           | Statut   |
+|--------------------------|----------|
+| Ajouter un véhicule      | ✅ Terminé |
+| Lister les véhicules     | ✅ Terminé |
+| Supprimer un véhicule    | ✅ Terminé |
+
+
+## 🌲 Branches
+
+- **main**: La branche principale pour la version de production contenant une version stable des fonctionnalités principales.
+- **staging**: La branche de développement où de nouvelles fonctionnalités sont testées et lintés avant d’être intégrées dans `main`.
+- **docker**: Une branche contenant une configuration Docker et un workflow de livraison continu pour exécuter le projet. Bien que Docker soit fonctionnel, l'image est générée correctement, et notre CLI peut s'appeler avec la commande docker run gérant le cas où le serveur ne tourne pas. Or, il y a juste une toute partie qui manque c'est la configuration de host et port qui a empêché la connexion au serveur même s'il est actif sur un port (voir branche docker pour plus d'informations) . 
+
+---
+
+🎉 **Merci d'utiliser Vehicle CLI** ! Si vous avez des questions ou des suggestions, n'hésitez pas à ouvrir un ticket dans le dépôt GitHub.
