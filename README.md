@@ -70,6 +70,10 @@ Voici comment exécuter les commandes principales :
 💡 **Astuce** : Assurez-vous que votre serveur est démarré et accessible à l'adresse fournie avec `-a`.
 
 ---
+Si vous voulez consulter un guide pour comprendre les arguments qu'il faut passer et les fonctionnalités faites :
+ ```bash
+ docker run --rm --network=host vehicle-cli --help
+```
 
 ## 🚀 Livraison continue
 
