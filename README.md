@@ -33,7 +33,7 @@ docker images
 ```
 Cela affichera la liste des images disponibles, y compris celle nommée `vehicle-cli`.
 
-### 3️⃣ Exécuter un conteneur
+### Exécuter un conteneur
 Pour tester l'application CLI :
 
 ```bash
