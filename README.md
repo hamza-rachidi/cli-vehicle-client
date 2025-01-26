@@ -23,7 +23,7 @@ L'application est disponible sous forme d'image Docker prête à être utilisée
 ### 2️⃣ Construire l'image Docker
 Pour créer une image Docker à partir du `Dockerfile` :
 ```bash
-docker build -t vehicle-cli .
+sudo docker build -t vehicle-cli .
 ```
 
 ### 3️ Vérifier l'image Docker
