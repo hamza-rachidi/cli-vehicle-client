@@ -21,9 +21,9 @@ cd cli-vehicle-client
 L'application est disponible sous forme d'image Docker prête à être utilisée. Voici comment y procéder.
 
 ### 2️⃣ Construire l'image Docker
-Pour créer une image Docker à partir du `Dockerfile` :
+Pour créer une image Docker à partir du `Dockerfile` ( si tu reçois une erreur de permission, exécute sudo -s avant ) :
 ```bash
-sudo docker build -t vehicle-cli .
+docker build -t vehicle-cli .
 ```
 
 ### 3️ Vérifier l'image Docker
@@ -94,7 +94,7 @@ Si vous voulez consulter un guide pour comprendre les arguments qu'il faut passe
 
 Un workflow GitHub Actions est configuré pour :
 1. Construire l'image Docker.
-2. Publier l'image sur Docker Hub lors de la création d'un tag Git (par exemple, `v1.2.0`).
+2. Publier l'image sur Docker Hub lors de la création d'un tag Git (par exemple, `v1.1.1`).
 
 L'image Docker est publiée sur Docker Hub et prête à l'emploi.
 
